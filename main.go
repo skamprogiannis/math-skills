@@ -28,13 +28,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	average := statistics.CalculateAverage(nums)
-	median := statistics.CalculateMedian(nums)
-	variance := statistics.CalculateVariance(nums)
-	standardDeviation := statistics.CalculateStandardDeviation(nums)
+	summary := statistics.CalculateSummary(nums)
 
-	fmt.Printf("Average: %d\n", average)
-	fmt.Printf("Median: %d\n", median)
-	fmt.Printf("Variance: %d\n", variance)
-	fmt.Printf("Standard Deviation: %d\n", standardDeviation)
+	fmt.Println("Average:", summary.Average)
+	fmt.Println("Median:", summary.Median)
+	fmt.Println("Variance:", summary.Variance)
+	fmt.Println("Standard Deviation:", summary.StandardDeviation)
 }
