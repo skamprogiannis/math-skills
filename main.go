@@ -13,9 +13,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	nums, warnings, err := statistics.ParseInput(os.Args[1:])
+	lines, err := statistics.ReadInputLines(os.Args[1])
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Error:", err)
+		os.Exit(1)
+	}
+
+	nums, warnings, err := statistics.ParseInput(lines)
 	for _, warning := range warnings {
-		fmt.Fprintln(os.Stderr, warning)	}
+		fmt.Fprintln(os.Stderr, warning)
+	}
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error:", err)
 		os.Exit(1)
