@@ -17,63 +17,43 @@ func CalculateSummary(nums []int) Summary {
 	for _, n := range nums {
 		sum += n
 	}
-	average := sum / len(nums)
+	average := float64(sum) / float64(len(nums))
 
 	sorted := slices.Clone(nums)
 	slices.Sort(sorted)
 	mid := len(sorted) / 2
-	median := sorted[mid]
+	median := float64(sorted[mid])
 	if len(sorted)%2 == 0 {
-		median = (sorted[mid-1] + sorted[mid]) / 2
+		median = float64(sorted[mid-1]+sorted[mid]) / 2
 	}
 
-	squaredDeviationSum := 0
+	squaredDeviationSum := 0.0
 	for _, n := range nums {
-		deviation := n - average
+		deviation := float64(n) - average
 		squaredDeviationSum += deviation * deviation
 	}
-	variance := squaredDeviationSum / len(nums)
+	variance := squaredDeviationSum / float64(len(nums))
 
 	return Summary{
-		Average:           average,
-		Median:            median,
-		Variance:          variance,
-		StandardDeviation: int(math.Sqrt(float64(variance))),
+		Average:           int(math.Round(average)),
+		Median:            int(math.Round(median)),
+		Variance:          int(math.Round(variance)),
+		StandardDeviation: int(math.Round(math.Sqrt(variance))),
 	}
 }
 
 func CalculateAverage(nums []int) int {
-	sum := 0
-	for _, n := range nums {
-		sum += n
-	}
-	return sum / len(nums)
+	return CalculateSummary(nums).Average
 }
 
 func CalculateMedian(nums []int) int {
-	sorted := slices.Clone(nums)
-	slices.Sort(sorted)
-	mid := len(sorted) / 2
-	if len(sorted)%2 == 0 {
-		return (sorted[mid-1] + sorted[mid]) / 2
-	}
-
-	return sorted[mid]
+	return CalculateSummary(nums).Median
 }
 
 func CalculateVariance(nums []int) int {
-	mean := CalculateAverage(nums)
-	squaredDeviationSum := 0
-
-	for _, n := range nums {
-		deviation := n - mean
-		squaredDeviationSum += deviation * deviation
-	}
-
-	return squaredDeviationSum / len(nums)
+	return CalculateSummary(nums).Variance
 }
 
 func CalculateStandardDeviation(nums []int) int {
-	variance := CalculateVariance(nums)
-	return int(math.Sqrt(float64(variance)))
+	return CalculateSummary(nums).StandardDeviation
 }
