@@ -13,14 +13,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	lines, err := statistics.ReadInputLines(os.Args[1])
+	lines, err := statistics.ReadDataLines(os.Args[1])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error:", err)
 		os.Exit(1)
 	}
 
-	nums, warnings, err := statistics.ParseInput(lines)
-	for _, warning := range warnings {
+	nums, parseWarnings, err := statistics.ParseInput(lines)
+	for _, warning := range parseWarnings {
 		fmt.Fprintln(os.Stderr, warning)
 	}
 	if err != nil {
@@ -28,10 +28,10 @@ func main() {
 		os.Exit(1)
 	}
 
-	summary := statistics.CalculateSummary(nums)
+	stats := statistics.CalculateSummary(nums)
 
-	fmt.Println("Average:", summary.Average)
-	fmt.Println("Median:", summary.Median)
-	fmt.Println("Variance:", summary.Variance)
-	fmt.Println("Standard Deviation:", summary.StandardDeviation)
+	fmt.Println("Average:", stats.Average)
+	fmt.Println("Median:", stats.Median)
+	fmt.Println("Variance:", stats.Variance)
+	fmt.Println("Standard Deviation:", stats.StandardDeviation)
 }
