@@ -8,7 +8,6 @@ import (
 func ParseInput(args []string) ([]int, []string, error) {
 	nums := make([]int, 0, len(args))
 	warnings := make([]string, 0)
-
 	for _, arg := range args {
 		val, err := strconv.Atoi(arg)
 		if err != nil {
@@ -24,3 +23,4 @@ func ParseInput(args []string) ([]int, []string, error) {
 
 	return nums, warnings, nil
 }
+

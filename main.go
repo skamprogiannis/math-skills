@@ -8,10 +8,14 @@ import (
 )
 
 func main() {
+	if len(os.Args) < 2 {
+		fmt.Fprintln(os.Stderr, "Error: No data file provided")
+		os.Exit(1)
+	}
+
 	nums, warnings, err := statistics.ParseInput(os.Args[1:])
 	for _, warning := range warnings {
-		fmt.Fprintln(os.Stderr, warning)
-	}
+		fmt.Fprintln(os.Stderr, warning)	}
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Error:", err)
 		os.Exit(1)
